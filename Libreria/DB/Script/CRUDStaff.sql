@@ -1,7 +1,7 @@
 use Libreria;
 go
 
-CREATE PROCEDURE InsertStaff
+CREATE OR ALTER PROCEDURE InsertStaff
 (
 	@Name varchar(50), 
 	@Lastname varchar(50),
@@ -14,7 +14,7 @@ AS
 			 (@Name,@Lastname,@Occupation);
 GO
 
-CREATE PROCEDURE SelectStaff 
+CREATE OR ALTER PROCEDURE SelectStaff 
 (
 	@ID int
 )
@@ -23,7 +23,7 @@ AS
 	Select * from dbo.Staff WHERE IdStaff = @ID;
 GO
 
-CREATE PROCEDURE UpdateStaff 
+CREATE OR ALTER PROCEDURE UpdateStaff 
 (
 	@ID int,
 	@Name varchar(50),
@@ -39,7 +39,7 @@ AS
 	WHERE IdStaff = @ID;
 GO
 
-CREATE PROCEDURE DeleteStaff 
+CREATE OR ALTER PROCEDURE DeleteStaff 
 (
 	@ID int
 )

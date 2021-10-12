@@ -1,7 +1,7 @@
 use Libreria;
 go
 
-CREATE PROCEDURE InsertReader
+CREATE OR ALTER PROCEDURE InsertReader
 (
 	@Name varchar(50),
 	@Lastname varchar(50),
@@ -16,7 +16,7 @@ AS
            (@Name,@Lastname,@Address,@Phone,@Email)
 GO
 
-CREATE PROCEDURE SelectReader 
+CREATE OR ALTER PROCEDURE SelectReader 
 (
 	@ID int
 )
@@ -25,7 +25,7 @@ AS
 	Select * from dbo.Reader WHERE IdReader = @ID;
 GO
 
-CREATE PROCEDURE UpdateReader 
+CREATE OR ALTER PROCEDURE UpdateReader 
 (
 	@ID int,
 	@Name varchar(50),
@@ -46,7 +46,7 @@ AS
 	WHERE IdReader = @ID;
 GO
 
-CREATE PROCEDURE DeleteReader
+CREATE OR ALTER PROCEDURE DeleteReader
 ( 
 	@ID int
 )

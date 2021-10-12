@@ -1,7 +1,7 @@
 use Libreria;
 go
 
-CREATE PROCEDURE InsertJob
+CREATE OR ALTER PROCEDURE InsertJob
 (
 	@Roles varchar(50)
 )
@@ -12,7 +12,7 @@ AS
 			 (@Roles);
 GO
 
-CREATE PROCEDURE SelectJob 
+CREATE OR ALTER PROCEDURE SelectJob 
 (
 	@ID int
 )
@@ -21,7 +21,7 @@ AS
 	Select * from dbo.Job WHERE IdJob = @ID;
 GO
 
-CREATE PROCEDURE UpdateJob 
+CREATE OR ALTER PROCEDURE UpdateJob 
 (
 	@Roles varchar(50),
 	@NewRoles varchar(50)
@@ -33,7 +33,7 @@ AS
 	WHERE Roles = @Roles;
 GO
 
-CREATE PROCEDURE DeleteJob
+CREATE OR ALTER PROCEDURE DeleteJob
 ( 
 	@ID int
 )

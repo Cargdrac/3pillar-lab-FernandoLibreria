@@ -1,7 +1,7 @@
 use Libreria;
 go
 
-CREATE PROCEDURE InsertBook
+CREATE OR ALTER PROCEDURE InsertBook
 (
 	@Title varchar(50),
 	@Publisher int,
@@ -15,7 +15,7 @@ AS
            (@Title,@Publisher,@Author,@Pages)
 GO
 
-CREATE PROCEDURE SelectBook 
+CREATE OR ALTER PROCEDURE SelectBook 
 (
 	@Title varchar(50)
 )
@@ -24,7 +24,7 @@ AS
 	Select * from dbo.Book WHERE Title = @Title;
 GO
 
-CREATE PROCEDURE UpdateBook 
+CREATE OR ALTER PROCEDURE UpdateBook 
 (
 	@Title varchar(50),
 	@NewTitle varchar(50),
@@ -43,7 +43,7 @@ AS
 	WHERE Title = @Title;
 GO
 
-CREATE PROCEDURE DeleteBook
+CREATE OR ALTER PROCEDURE DeleteBook
 ( 
 	@ID int
 )

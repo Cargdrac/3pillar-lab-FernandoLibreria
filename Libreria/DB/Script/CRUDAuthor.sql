@@ -1,7 +1,7 @@
 use Libreria;
 go
 
-CREATE PROCEDURE InsertAuthor
+CREATE OR ALTER PROCEDURE InsertAuthor
 (
 	@Name varchar(50), 
 	@Lastname varchar(50)
@@ -13,7 +13,7 @@ AS
 			 (@Name,@Lastname);
 GO
 
-CREATE PROCEDURE SelectAuthor 
+CREATE OR ALTER PROCEDURE SelectAuthor 
 (
 	@Name varchar(50)
 )
@@ -22,7 +22,7 @@ AS
 	Select * from dbo.Author WHERE Name = @Name;
 GO
 
-CREATE PROCEDURE UpdateAuthor 
+CREATE OR ALTER PROCEDURE UpdateAuthor 
 (
 	@Name varchar(50),
 	@NewName varchar(50),
@@ -36,7 +36,7 @@ AS
 	WHERE Name = @Name;
 GO
 
-CREATE PROCEDURE DeleteAuthor 
+CREATE OR ALTER PROCEDURE DeleteAuthor 
 (
 	@ID int
 )

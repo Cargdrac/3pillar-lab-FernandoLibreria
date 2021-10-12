@@ -1,7 +1,7 @@
 use Libreria;
 go
 
-CREATE PROCEDURE InsertBookLending
+CREATE OR ALTER PROCEDURE InsertBookLending
 (
 	@Book int,
 	@Reader int,
@@ -16,7 +16,7 @@ AS
            (@Book,@Reader,@Employee,@IniDate,@EndDate)
 GO
 
-CREATE PROCEDURE SelectBookLending 
+CREATE OR ALTER PROCEDURE SelectBookLending 
 (
 	@ID int
 )
@@ -25,7 +25,7 @@ AS
 	Select * from dbo.BookLending WHERE IdLending = @ID;
 GO
 
-CREATE PROCEDURE UpdateBookLending 
+CREATE OR ALTER PROCEDURE UpdateBookLending 
 (
 	@ID int,
 	@Book int,
@@ -46,7 +46,7 @@ AS
 	WHERE IdLending = @ID;
 GO
 
-CREATE PROCEDURE DeleteBookLending
+CREATE OR ALTER PROCEDURE DeleteBookLending
 ( 
 	@ID int
 )
