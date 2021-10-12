@@ -1,5 +1,6 @@
 use FernandoLibreria;
 go
+
 INSERT INTO dbo.Author (Name,Lastname)
      VALUES
            ('Gabriel','Garcia'),

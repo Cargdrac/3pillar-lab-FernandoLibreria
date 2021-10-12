@@ -1,8 +1,10 @@
 use FernandoLibreria;
 go
 
---Ver Libros con los datos en lugar de indices--
-CREATE VIEW BookData AS
+
+-- VIEW BookData -- 
+-- It shows the Book table but with a more user friendly representation for the user -- 
+CREATE OR ALTER VIEW BookData AS
 SELECT	B.IdBook,
 		B.Title,
 		P.Name AS Publisher,
@@ -14,8 +16,10 @@ SELECT	B.IdBook,
 			ON B.Author = A.IdAuthor;
 GO
 
+-- Usage for the BookData View --
+SELECT * FROM BookData;
 
---Ver numero de libros publicados por Author (Mayor a Menor)--
+-- Shows the number of books published by Author in DESC Order --
 SELECT	Author.Name+' '+Author.Lastname as Author, 
 		COUNT(Book.IdBook) AS #ofBooks
 		FROM Book
@@ -25,7 +29,7 @@ SELECT	Author.Name+' '+Author.Lastname as Author,
 		ORDER BY COUNT(Book.IdBook) DESC;
 GO
 
---Ver numero de libros publicados por Editorial (Mayor a Menor)--
+-- Shows the number of books published by Publisher in DESC Order --
 SELECT	P.Name AS Publisher, 
 		COUNT(B.IdBook) AS #ofBooks
 		FROM Book B
@@ -35,7 +39,7 @@ SELECT	P.Name AS Publisher,
 		ORDER BY COUNT(B.IdBook) DESC;
 GO
 
---Ver numero de libros publicados por Direccion (Mayor a Menor)--
+-- Shows the number of books published in a certain Address --
 SELECT	P.Address AS AddressofBooks, 
 		COUNT(B.IdBook) AS #ofBooks
 		FROM Book B
@@ -45,7 +49,7 @@ SELECT	P.Address AS AddressofBooks,
 		ORDER BY COUNT(B.IdBook) DESC;
 GO
 
---Cantidad de Lectores por Autor(Menor a Mayor)--
+-- Shows the number of Readers by Author so you know the most popular Author for the readers --
 SELECT	A.Name+' '+A.Lastname as Author,  
 		COUNT(Distinct R.IdReader) AS Readers
 		FROM Reader R
@@ -59,7 +63,7 @@ SELECT	A.Name+' '+A.Lastname as Author,
 		ORDER BY COUNT(Distinct R.IdReader) ASC;
 GO
 
---Cantidad de Lectores por Editorial(Menor a Mayor)--
+-- Shows the number of Readers by Publisher so you know the most popular Publisher for the readers --
 SELECT	P.Name AS Publisher, 
 		COUNT(Distinct R.IdReader) AS Readers
 		FROM Reader R
@@ -73,7 +77,7 @@ SELECT	P.Name AS Publisher,
 		ORDER BY COUNT(Distinct R.IdReader) ASC;
 GO
 
---Cantidad de Lectores por Libro (Mayor a Menor)--
+-- Shows the number of readers by book showing first the most popular book --
 SELECT	B.Title AS Book,
 		COUNT(Distinct R.IdReader) AS Readers
 		FROM Reader R
@@ -85,7 +89,7 @@ SELECT	B.Title AS Book,
 		ORDER BY COUNT(R.IdReader) DESC;
 GO
 
---Cantidad de Paginas leidas por Lector--
+-- Shows the number of pages that a readers has to read in order to finish the books he got, so you can know wich readers are the most active --
 SELECT	R.Name+' '+R.Lastname AS Reader,
 		SUM(B.Pages) AS PagesRead
 		FROM BookLending BL
@@ -96,8 +100,7 @@ SELECT	R.Name+' '+R.Lastname AS Reader,
 		GROUP BY R.Name,R.Lastname
 		ORDER BY SUM(B.Pages) DESC;
 GO
-
---Informacion del Libros por Lector--
+-- Shows basic book info per Reader --
 SELECT	
 		R.Name+' '+R.Lastname AS Reader, 
 		A.Name+' '+A.Lastname AS Author,
@@ -113,8 +116,9 @@ SELECT
 		GROUP BY B.Title,R.Name,R.Lastname,Book,A.Name,A.Lastname;
 GO
 
---Ver Trabajadores con los datos en lugar de indices--
-CREATE VIEW StaffData AS
+-- VIEW StaffData -- 
+-- It shows the Staff table but with a more user friendly representation for the user -- 
+CREATE OR ALTER VIEW StaffData AS
 SELECT	S.IdStaff,
 		S.Name+' '+S.Lastname AS Employee,
 		J.Roles AS Occupation FROM Staff S
@@ -122,7 +126,11 @@ SELECT	S.IdStaff,
 			ON S.Occupation = J.IdJob;
 GO
 
---Ver numero de trabajadores por rol en la libreria--
+-- Usage for the StaffData View --
+SELECT * FROM StaffData;
+
+
+-- Show the number of employees per job in the library--
 SELECT	J.Roles AS Occupation,
 		COUNT(Distinct S.IdStaff) NumofEmployees
 		FROM Staff S
@@ -131,8 +139,9 @@ SELECT	J.Roles AS Occupation,
 		GROUP BY J.Roles;
 GO
 
---Ver Prestamos con nombres de lectores y empleados que dieron el prestamo--
-CREATE VIEW BookLendingData AS
+-- VIEW BookLendingData -- 
+-- It shows the BookLendingData table but with a more user friendly representation for the user -- 
+CREATE OR ALTER VIEW BookLendingData AS
 SELECT	BL.IdLending,
 		B.Title AS Book,
 		R.IdReader AS ReaderId,
@@ -149,7 +158,10 @@ SELECT	BL.IdLending,
 			ON BL.Employee = S.IdStaff;
 GO
 
---Lectores por direccion--
+-- Usage for the BookLendingData View --
+SELECT * FROM BookLendingData;
+
+-- Show the number of Readers by address -- 
 SELECT	R.Address,
 		COUNT(Distinct BL.Reader) AS Readers
 		FROM BookLending BL
@@ -159,7 +171,7 @@ SELECT	R.Address,
 		ORDER BY COUNT(BL.Reader) DESC;
 GO
 
---Numero de prestamos por empleado--
+-- Show the number of Books that the employee has loaned to a reader --
 SELECT	S.Name+' '+S.Lastname AS Employee,
 		COUNT(Distinct BL.IdLending) AS Loans
 		FROM BookLending BL
@@ -169,7 +181,7 @@ SELECT	S.Name+' '+S.Lastname AS Employee,
 GO
 
 
---Prestamos de libro que tienen una fecha limite de entrega entre fechas '2021-9-21' y '2021-9-28'--
+-- Book loans that have a delivery deadline between dates '2021-9-21' and '2021-9-28'--
 SELECT	
 		B.Title AS Book,
 		R.Name+' '+R.Lastname AS Reader,
@@ -184,30 +196,30 @@ SELECT
 		WHERE BL.EndDate BETWEEN '2021-9-21' AND '2021-9-28';
 GO
 
---Ver Autores--
+--Show Author Table--
 SELECT * FROM Author;
 GO
 
---Ver Editoriales--
+--Show Publisher Table--
 SELECT * FROM Publisher;
 GO
 
---Ver Trabajos--
+--Show Job Table--
 SELECT * FROM Job;
 GO
 
---Ver Trabajadores--
+--Show Staff Table--
 SELECT * FROM Staff
 GO
 
---Ver Libros--
+--Show Book Table--
 SELECT * FROM Book
 GO
 
---Ver Lectores--
+--Show Reader Table--
 SELECT * FROM Reader
 GO
 
---Ver Prestamos--
+--Show BookLending Table--
 SELECT * FROM BookLending
 GO

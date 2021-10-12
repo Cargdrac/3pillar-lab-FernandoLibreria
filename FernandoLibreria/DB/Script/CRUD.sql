@@ -1,39 +1,56 @@
 use FernandoLibreria;
 go
 
+-- Stored Procedures --
+-- All Stored Procedures have the same Structure, the only diferences are thw parameters used --
+
+-- INSERT --
+-- This SP receives a number of parameters equal to the number of columns in the table, then inserts the data --
+
+-- SELECT --
+-- This SP receives an ID (Primary key of the table) then searches for the Id and return the record --
+
+-- UPDATE --
+-- This SP receives an ID (Primary key of the table), and also receives  a number of parameters equal to the number of columns in the table, then searches for the Id, then updates the record with the received data --
+
+-- DELETE --
+-- This SP receives an ID (Primary key of the table) then searches for the Id and deletes the record, but only if the record is not constraint by a relation with another table --
+
+
 CREATE OR ALTER PROCEDURE InsertAuthor
 (
 	@Name varchar(50), 
 	@Lastname varchar(50)
 )
 AS
-
+	
 	INSERT INTO dbo.Author (Name,Lastname)
 	  VALUES
 			 (@Name,@Lastname);
+	
 GO
 
 CREATE OR ALTER PROCEDURE SelectAuthor 
 (
-	@Name varchar(50)
+	@ID int
 )
 AS
 
-	Select * from dbo.Author WHERE Name = @Name;
+	Select * from dbo.Author WHERE IdAuthor = @ID;
 GO
 
 CREATE OR ALTER PROCEDURE UpdateAuthor 
 (
-	@Name varchar(50),
+	@ID int,
 	@NewName varchar(50),
 	@Lastname varchar(50)
 )
 AS
-
+	
 	UPDATE dbo.Author
 	SET Name = @NewName,
 		Lastname = @Lastname
-	WHERE Name = @Name;
+	WHERE IdAuthor = @ID;
 GO
 
 CREATE OR ALTER PROCEDURE DeleteAuthor 
@@ -41,7 +58,7 @@ CREATE OR ALTER PROCEDURE DeleteAuthor
 	@ID int
 )
 AS
-
+	
 	DELETE FROM dbo.Author
 	WHERE IdAuthor = @ID;
 GO
@@ -54,7 +71,7 @@ CREATE OR ALTER PROCEDURE InsertBook
 	@Pages int
 )
 AS
-
+	
 	INSERT INTO dbo.Book(Title, Author, Publisher,Pages)
      VALUES
            (@Title,@Publisher,@Author,@Pages)
@@ -71,21 +88,21 @@ GO
 
 CREATE OR ALTER PROCEDURE UpdateBook 
 (
-	@Title varchar(50),
+	@ID int,
 	@NewTitle varchar(50),
 	@Publisher int,
 	@Author int,
 	@Pages int
 )
 AS
-
+		
 	UPDATE dbo.Book
 	SET Title = @NewTitle,
 		Publisher = @Publisher,
 		Author = @Author,
 		Pages = @Pages
 
-	WHERE Title = @Title;
+	WHERE IdBook = @ID;
 GO
 
 CREATE OR ALTER PROCEDURE DeleteBook
@@ -93,7 +110,7 @@ CREATE OR ALTER PROCEDURE DeleteBook
 	@ID int
 )
 AS
-
+	
 	DELETE FROM dbo.Book
 	WHERE IdBook = @ID;
 GO
@@ -112,16 +129,16 @@ GO
 
 CREATE OR ALTER PROCEDURE SelectPublisher 
 (
-	@Name varchar(50)
+	@ID int
 )
 AS
 
-	Select * from dbo.Publisher WHERE Name = @Name;
+	Select * from dbo.Publisher WHERE IdPublisher = @ID;
 GO
 
 CREATE OR ALTER PROCEDURE UpdatePublisher 
 (
-	@Name varchar(50),
+	@ID int,
 	@NewName varchar(50),
 	@Address varchar(50)
 )
@@ -130,7 +147,7 @@ AS
 	UPDATE dbo.Publisher
 	SET Name = @NewName,
 		Address = @Address
-	WHERE Name = @Name;
+	WHERE IdPublisher = @ID;
 GO
 
 CREATE OR ALTER PROCEDURE DeletePublisher
@@ -220,14 +237,14 @@ GO
 
 CREATE OR ALTER PROCEDURE UpdateJob 
 (
-	@Roles varchar(50),
+	@ID int,
 	@NewRoles varchar(50)
 )
 AS
 
 	UPDATE dbo.Job
 	SET Roles = @NewRoles
-	WHERE Roles = @Roles;
+	WHERE IdJob = @ID;
 GO
 
 CREATE OR ALTER PROCEDURE DeleteJob
