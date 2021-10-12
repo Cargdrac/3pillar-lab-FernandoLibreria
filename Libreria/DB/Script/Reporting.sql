@@ -2,6 +2,7 @@ use Libreria;
 go
 
 --Ver Libros con los datos en lugar de indices--
+CREATE VIEW BookData AS
 SELECT	B.IdBook,
 		B.Title,
 		P.Name AS Publisher,
@@ -85,7 +86,6 @@ SELECT	B.Title AS Book,
 GO
 
 --Cantidad de Paginas leidas por Lector--
-
 SELECT	R.Name+' '+R.Lastname AS Reader,
 		SUM(B.Pages) AS PagesRead
 		FROM BookLending BL
@@ -114,6 +114,7 @@ SELECT
 GO
 
 --Ver Trabajadores con los datos en lugar de indices--
+CREATE VIEW StaffData AS
 SELECT	S.IdStaff,
 		S.Name+' '+S.Lastname AS Employee,
 		J.Roles AS Occupation FROM Staff S
@@ -131,6 +132,7 @@ SELECT	J.Roles AS Occupation,
 GO
 
 --Ver Prestamos con nombres de lectores y empleados que dieron el prestamo--
+CREATE VIEW BookLendingData AS
 SELECT	BL.IdLending,
 		B.Title AS Book,
 		R.IdReader AS ReaderId,
