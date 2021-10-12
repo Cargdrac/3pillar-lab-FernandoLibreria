@@ -2,7 +2,7 @@ use FernandoLibreria;
 go
 
 -- Stored Procedures --
--- All Stored Procedures have the same Structure, the only diferences are thw parameters used --
+-- All Stored Procedures have the same Structure, the only diferences are the parameters used --
 
 -- INSERT --
 -- This SP receives a number of parameters equal to the number of columns in the table, then inserts the data --
@@ -11,7 +11,7 @@ go
 -- This SP receives an ID (Primary key of the table) then searches for the Id and return the record --
 
 -- UPDATE --
--- This SP receives an ID (Primary key of the table), and also receives  a number of parameters equal to the number of columns in the table, then searches for the Id, then updates the record with the received data --
+-- This SP receives an ID (Primary key of the table), and also receives a number of parameters equal to the number of columns in the table, then searches for the Id, then updates the record with the received data --
 
 -- DELETE --
 -- This SP receives an ID (Primary key of the table) then searches for the Id and deletes the record, but only if the record is not constraint by a relation with another table --
